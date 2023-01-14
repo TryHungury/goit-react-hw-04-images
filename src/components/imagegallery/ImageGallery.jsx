@@ -4,19 +4,17 @@ import { Button } from "components/button/Button";
 import { Spinner } from "components/spinner/Spinner";
 import { Modal } from "components/modal/Modal";
 import { Box } from "components/box/Box";
-import { useState } from "react";
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 
 export const ImageGallery = ({ searchText, page, onClick }) => {
-  const [images, setImages] = useState(null)
-  const [imagesHits, setImagesHits] = useState(null)
   const [activeSpinner, setActiveSpinner] = useState(false)
   const [activeModal, setActiveModal] = useState(false)
   const [modalImageView, setModalImageView] = useState("")
   const [user, setUser] = useState("")
   const [firstRender, setFirstRender] = useState(true)
-
-
+  const [images, setImages] = useState(null)
+  const [imagesHits, setImagesHits] = useState(null)
+  
   const setStateImages = (images) => {
     const totalHits = images.hits;
 
@@ -48,6 +46,7 @@ export const ImageGallery = ({ searchText, page, onClick }) => {
       .catch(err => err.json)
       .finally(()=>setActiveSpinner(false))
   }, [searchText, page, firstRender])
+  // помилка 48 рядок, що я не знадаю залежності, але якщо задаю то це бескінечний цикл, що я роблю не так?
 
   const handleActiveModalToggle = () => {
     setActiveModal((prevState)=>(!prevState))
