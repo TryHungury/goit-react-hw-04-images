@@ -45,7 +45,7 @@ export const ImageGallery = ({ searchText, page, onClick }) => {
       .then((images) => setStateImages(images))
       .catch(err => err.json)
       .finally(()=>setActiveSpinner(false))
-  }, [searchText, page, firstRender])
+  }, [searchText, page])
   // помилка 48 рядок, що я не знадаю залежності, але якщо задаю то це бескінечний цикл, що я роблю не так?
 
   const handleActiveModalToggle = () => {
