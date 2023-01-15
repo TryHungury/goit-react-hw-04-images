@@ -15,22 +15,35 @@ export const ImageGallery = ({ searchText, page, onClick }) => {
   const [images, setImages] = useState(null)
   const [imagesHits, setImagesHits] = useState(null)
   
-  const setStateImages = (images) => {
-    const totalHits = images.hits;
+  // const setStateImages = (images) => {
+  //   const totalHits = images.hits;
 
-    setImages(images) 
+  //   setImages(images) 
 
-    if (page > 1) {
-      setImagesHits((prev)=>([...prev, ...totalHits]))
-      return 
-    }
+  //   if (page > 1) {
+  //     setImagesHits((prev)=>([...prev, ...totalHits]))
+  //     return 
+  //   }
 
-    setImagesHits(totalHits)
-  }
+  //   setImagesHits(totalHits)
+  // }
 
   useEffect(()=>{
     if (firstRender) {
       return setFirstRender(false)
+    }
+
+    const setStateImages = (images) => {
+      const totalHits = images.hits;
+  
+      setImages(images) 
+  
+      if (page > 1) {
+        setImagesHits((prev)=>([...prev, ...totalHits]))
+        return 
+      }
+  
+      setImagesHits(totalHits)
     }
 
     const BASE_URL = "https://pixabay.com/api/";
@@ -45,9 +58,8 @@ export const ImageGallery = ({ searchText, page, onClick }) => {
       .then((images) => setStateImages(images))
       .catch(err => err.json)
       .finally(()=>setActiveSpinner(false))
-  }, [searchText, page])
-  // помилка 48 рядок, що я не знадаю залежності, але якщо задаю то це бескінечний цикл, що я роблю не так?
-
+  }, [searchText, page, firstRender])
+ 
   const handleActiveModalToggle = () => {
     setActiveModal((prevState)=>(!prevState))
   }
